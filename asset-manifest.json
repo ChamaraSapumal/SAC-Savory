@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/sac-savory/static/css/main.a4a1effd.css",
-    "main.js": "/sac-savory/static/js/main.72fb35cb.js",
+    "main.css": "/sac-savory/static/css/main.cdf7b3f6.css",
+    "main.js": "/sac-savory/static/js/main.97823d1f.js",
     "static/js/488.d80bb690.chunk.js": "/sac-savory/static/js/488.d80bb690.chunk.js",
     "index.html": "/sac-savory/index.html",
-    "main.a4a1effd.css.map": "/sac-savory/static/css/main.a4a1effd.css.map",
-    "main.72fb35cb.js.map": "/sac-savory/static/js/main.72fb35cb.js.map",
+    "main.cdf7b3f6.css.map": "/sac-savory/static/css/main.cdf7b3f6.css.map",
+    "main.97823d1f.js.map": "/sac-savory/static/js/main.97823d1f.js.map",
     "488.d80bb690.chunk.js.map": "/sac-savory/static/js/488.d80bb690.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.a4a1effd.css",
-    "static/js/main.72fb35cb.js"
+    "static/css/main.cdf7b3f6.css",
+    "static/js/main.97823d1f.js"
   ]
 }

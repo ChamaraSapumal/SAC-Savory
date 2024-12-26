@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/sac-savory/static/css/main.d9a1440f.css",
+    "main.js": "/sac-savory/static/js/main.bf122b17.js",
+    "static/js/488.d80bb690.chunk.js": "/sac-savory/static/js/488.d80bb690.chunk.js",
+    "index.html": "/sac-savory/index.html",
+    "main.d9a1440f.css.map": "/sac-savory/static/css/main.d9a1440f.css.map",
+    "main.bf122b17.js.map": "/sac-savory/static/js/main.bf122b17.js.map",
+    "488.d80bb690.chunk.js.map": "/sac-savory/static/js/488.d80bb690.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.d9a1440f.css",
+    "static/js/main.bf122b17.js"
+  ]
+}

@@ -22,13 +22,13 @@ export default function NotFound() {
           </p>
           <div className="mt-10 flex items-center justify-center gap-x-6">
             <a
-              href="/home"
+              href="/sac-savory"
               className="rounded-md bg-green-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600"
             >
               Go back home
             </a>
             <a
-              href="/contactus"
+              href="/sac-savory/contactus"
               className="text-sm font-semibold text-gray-900"
             >
               Contact support <span aria-hidden="true">&rarr;</span>

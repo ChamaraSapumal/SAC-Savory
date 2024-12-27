@@ -47,7 +47,7 @@ const products = [
   {
     name: "Table Reservation",
     description: "Reserve a table easily through our system",
-    href: "/reservation",
+    href: "/table",
     icon: FingerPrintIcon,
   },
   {

@@ -7,6 +7,7 @@ import Signup from "./Signup"; // Add Signup component if needed
 import Home from "./Home";
 import UserDashboard from "./UserDashboard";
 import Menu from "./Menu";
+import Table from "./Table";
 import NotFound from "./NotFound"; // Import the NotFound component
 import GotoWeb from "./GotoWeb";
 
@@ -25,6 +26,7 @@ function App() {
             <Route path="/home" element={<Home />} />
             <Route path="/dashboard" element={<UserDashboard />} />
             <Route path="/menu" element={<Menu />} />
+            <Route path="/table" element={<Table />} />
             {/* Catch-all route for undefined paths (404) */}
             <Route path="*" element={<NotFound />} /> {/* 404 Page */}
           </Routes>

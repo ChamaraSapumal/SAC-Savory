@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function UserDashboard() {
   const [userData, setUserData] = useState(null);
+  const [reservations, setReservations] = useState([]); // New state for reservations
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -43,6 +44,25 @@ export default function UserDashboard() {
         } finally {
           setLoading(false);
         }
+
+        // Fetch reservations based on userID
+        const reservationRef = ref(db, "reservations");
+        try {
+          const reservationSnapshot = await get(reservationRef);
+          if (reservationSnapshot.exists()) {
+            const allReservations = reservationSnapshot.val();
+            const userReservations = Object.values(allReservations).filter(
+              (reservation) => reservation.userID === user.uid
+            );
+            setReservations(userReservations);
+          } else {
+            console.warn("No reservations found for the user.");
+            setError("No reservations found for the user.");
+          }
+        } catch (error) {
+          console.error("Error fetching reservations:", error.message);
+          setError("Error fetching reservations: " + error.message);
+        }
       } else {
         console.log("No authenticated user found.");
         setError("Please log in to view the dashboard.");
@@ -52,8 +72,7 @@ export default function UserDashboard() {
     };
 
     fetchUserData();
-  }, []);
-  // Empty dependency array ensures this effect runs once when the component mounts
+  }, []); // Empty dependency array ensures this effect runs once when the component mounts
 
   const handleLogout = async () => {
     const auth = getAuth();
@@ -76,9 +95,9 @@ export default function UserDashboard() {
   }
 
   return (
-    <div className="p-4 sm:p-6">
+    <div className="p-4 sm:p-6 container">
       {/* Logout/Login Button */}
-      <div className="flex justify-end">
+      <div className="flex justify-end pt-11">
         {isLoggedIn ? (
           <button
             onClick={handleLogout}
@@ -98,7 +117,7 @@ export default function UserDashboard() {
 
       {/* User Dashboard */}
       {isLoggedIn && userData && (
-        <div>
+        <div className="pt-24 container p-10">
           <div className="sm:px-0">
             <h3 className="text-lg font-semibold text-gray-900">
               User Dashboard
@@ -137,6 +156,51 @@ export default function UserDashboard() {
                   {userData?.address || "N/A"}
                 </dd>
               </div>
+            </dl>
+          </div>
+        </div>
+      )}
+
+      {/* Reservation details */}
+      {reservations.length > 0 && (
+        <div className="pt-10 container p-10">
+          <h3 className="text-lg font-semibold text-gray-900">
+            Your Reservations
+          </h3>
+          <div className="mt-6 border-t border-gray-200">
+            <dl className="divide-y divide-gray-200">
+              {reservations.map((reservation, index) => (
+                <div
+                  key={index} // Using index as key, consider using unique property like reservation.id if possible
+                  className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0"
+                >
+                  <dt className="text-sm font-medium text-gray-900">
+                    Reservation Name
+                  </dt>
+                  <dd className="mt-1 text-sm text-gray-700 sm:col-span-2">
+                    {reservation.name || "N/A"}
+                  </dd>
+
+                  <dt className="text-sm font-medium text-gray-900">
+                    Date & Time
+                  </dt>
+                  <dd className="mt-1 text-sm text-gray-700 sm:col-span-2">
+                    {reservation.date} at {reservation.time}
+                  </dd>
+
+                  <dt className="text-sm font-medium text-gray-900">Guests</dt>
+                  <dd className="mt-1 text-sm text-gray-700 sm:col-span-2">
+                    {reservation.guests || "N/A"}
+                  </dd>
+
+                  <dt className="text-sm font-medium text-gray-900">
+                    Special Requests
+                  </dt>
+                  <dd className="mt-1 text-sm text-gray-700 sm:col-span-2">
+                    {reservation.specialRequests || "None"}
+                  </dd>
+                </div>
+              ))}
             </dl>
           </div>
         </div>

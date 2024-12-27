@@ -2,12 +2,16 @@ import { useState, useEffect } from "react";
 import { ref, get } from "firebase/database";
 import { getAuth, signOut } from "firebase/auth";
 import { db } from "./Firebase"; // Ensure you correctly import the Firebase config
+import { useAuth } from "./AuthProvider";
+import { useNavigate } from "react-router-dom";
 
 export default function UserDashboard() {
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -55,13 +59,12 @@ export default function UserDashboard() {
     const auth = getAuth();
     try {
       await signOut(auth);
-      setIsLoggedIn(false); // Update state to reflect logged-out status
-      setUserData(null); // Clear user data
-      console.log("User logged out successfully.");
+      setIsLoggedIn(false); // Update the state to reflect logged-out status
+      navigate("/home");
     } catch (error) {
-      console.error("Error logging out:", error.message);
-      setError("Failed to log out. Please try again.");
+      setError("Error logging out.");
     }
+    await logout(); // Logout from AuthProvider
   };
 
   if (loading) {

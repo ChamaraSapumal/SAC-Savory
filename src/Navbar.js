@@ -28,6 +28,8 @@ import {
   PhoneIcon,
   PlayCircleIcon,
 } from "@heroicons/react/20/solid";
+import { useAuth } from "./AuthProvider";
+import logo from "./assets/favicon.png";
 
 const products = [
   {
@@ -70,33 +72,50 @@ const callsToAction = [
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false); // Track login state
+  const { user, logout } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
     const userLoggedIn = localStorage.getItem("isLoggedIn") === "true";
-    setIsLoggedIn(userLoggedIn);
-  }, []);
+    if (userLoggedIn && user) {
+      setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
+    }
+  }, [user]); // Trigger this effect whenever user state changes.
 
   const handleUserIconClick = () => {
     navigate("/dashboard"); // Redirect to the user dashboard
   };
 
+  const handleLogout = () => {
+    logout(); // Call the logout function from AuthProvider
+    setIsLoggedIn(false); // Update the state to reflect logged-out status
+    localStorage.setItem("isLoggedIn", "false"); // Update local storage
+    navigate("/home"); // Redirect after logout
+  };
+
   return (
-    <header className="bg-white relative z-50">
+    <header className="fixed bg-transparent top-0 z-50 shadow-md w-screen">
       <nav
         aria-label="Global"
         className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8"
       >
         <div className="flex lg:flex-1">
-          <Link to="/" className="-m-1.5 p-1.5">
+          <Link
+            to="/"
+            className="-m-1.5 p-1.5 hover:opacity-80 transition-opacity duration-300"
+          >
             <span className="sr-only">SAC Savory</span>
             <img
               alt="SAC Savory Logo"
-              src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=600"
-              className="h-8 w-auto"
+              src={logo}
+              onError={(e) => (e.target.src = "/fallback-logo.png")}
+              className="h-5 sm:h-10 md:h-12 w-auto"
             />
           </Link>
         </div>
+
         <div className="flex lg:hidden">
           <button
             type="button"
@@ -130,7 +149,7 @@ export default function Navbar() {
                     <div className="flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
                       <item.icon
                         aria-hidden="true"
-                        className="h-6 w-6 text-gray-600 group-hover:text-indigo-600"
+                        className="h-6 w-6 text-gray-600 group-hover:text-green-600"
                       />
                     </div>
                     <div className="flex-auto">
@@ -259,13 +278,38 @@ export default function Navbar() {
                   Company
                 </Link>
               </div>
-              <div className="py-6">
-                <Link
-                  to="/login"
-                  className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-6 text-gray-900 hover:bg-gray-50"
-                >
-                  Log in
-                </Link>
+              <div className="hidden lg:flex lg:flex-1 lg:justify-end">
+                {user ? (
+                  <UserCircleIcon
+                    className="h-8 w-8 cursor-pointer text-gray-900"
+                    onClick={handleUserIconClick}
+                    title="Dashboard"
+                  />
+                ) : (
+                  <Link
+                    to="/login"
+                    className="text-sm font-semibold text-gray-900"
+                  >
+                    Log in <span aria-hidden="true">&rarr;</span>
+                  </Link>
+                )}
+              </div>
+              {/* Add this for mobile view */}
+              <div className="lg:hidden flex items-center gap-x-3">
+                {isLoggedIn ? (
+                  <UserCircleIcon
+                    className="h-8 w-8 cursor-pointer text-gray-900"
+                    onClick={handleUserIconClick}
+                    title="Dashboard"
+                  />
+                ) : (
+                  <Link
+                    to="/login"
+                    className="text-sm font-semibold text-gray-900"
+                  >
+                    Log in <span aria-hidden="true">&rarr;</span>
+                  </Link>
+                )}
               </div>
             </div>
           </div>

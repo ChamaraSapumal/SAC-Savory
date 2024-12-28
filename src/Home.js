@@ -25,7 +25,7 @@ const Home = () => {
             <h1 className="text-5xl font-semibold tracking-tight text-green-900 sm:text-7xl">
               Welcome to SAC Savory&reg;
             </h1>
-            <p className="mt-8 text-lg font-medium text-gray-500 sm:text-xl/8">
+            <p className="mt-8 text-lg font-medium text-gray-500 sm:text-xl/8 ">
               Indulge in our delicious menu, crafted with the finest ingredients
               and served with a smile. Whether you're here for a family meal or
               a quick bite, we have something for everyone!

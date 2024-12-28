@@ -28,7 +28,7 @@ export default function NotFound() {
               Go back home
             </a>
             <a
-              href="/sac-savory/contactus"
+              href="/contactus"
               className="text-sm font-semibold text-gray-900"
             >
               Contact support <span aria-hidden="true">&rarr;</span>

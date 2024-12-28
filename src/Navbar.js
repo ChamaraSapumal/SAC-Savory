@@ -14,14 +14,14 @@ import {
   PopoverPanel,
 } from "@headlessui/react";
 import {
-  ArrowPathIcon,
+  ShoppingCartIcon,
   Bars3Icon,
-  ChartPieIcon,
-  CursorArrowRaysIcon,
-  FingerPrintIcon,
-  SquaresPlusIcon,
   XMarkIcon,
   UserCircleIcon,
+  BookOpenIcon,
+  BellIcon,
+  GiftIcon,
+  ListBulletIcon,
 } from "@heroicons/react/24/outline";
 import {
   ChevronDownIcon,
@@ -36,31 +36,31 @@ const products = [
     name: "Menu",
     description: "Explore our wide variety of dishes",
     href: "/menu",
-    icon: ChartPieIcon,
+    icon: ListBulletIcon,
   },
   {
     name: "Online Ordering",
     description: "Order your favorite meals online",
     href: "/order",
-    icon: CursorArrowRaysIcon,
+    icon: ShoppingCartIcon,
   },
   {
     name: "Table Reservation",
     description: "Reserve a table easily through our system",
     href: "/table",
-    icon: FingerPrintIcon,
+    icon: BookOpenIcon,
   },
   {
     name: "Special Offers",
     description: "Check out our latest discounts and deals",
     href: "/offers",
-    icon: SquaresPlusIcon,
+    icon: BellIcon,
   },
   {
     name: "Catering Services",
     description: "Perfect for your events and gatherings",
     href: "/catering",
-    icon: ArrowPathIcon,
+    icon: GiftIcon,
   },
 ];
 
@@ -96,7 +96,7 @@ export default function Navbar() {
   };
 
   return (
-    <header className="fixed bg-transparent top-0 z-50 shadow-md w-screen">
+    <header className="fixed backdrop-blur-lg bg-white/50 top-0 z-50 shadow-md w-screen">
       <nav
         aria-label="Global"
         className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8"
@@ -238,12 +238,20 @@ export default function Navbar() {
           <div className="mt-6 flow-root">
             <div className="-my-6 divide-y divide-gray-500/10">
               <div className="space-y-2 py-6">
-                <Disclosure as="div" className="-mx-3">
-                  <DisclosureButton className="group flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold text-gray-900 hover:bg-gray-50">
+                <Disclosure
+                  as="div"
+                  className="-mx-3"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  <DisclosureButton
+                    className="group flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold text-gray-900 hover:bg-gray-50"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
                     Product
                     <ChevronDownIcon
                       aria-hidden="true"
                       className="h-5 w-5 group-data-[open]:rotate-180"
+                      onClick={() => setMobileMenuOpen(false)}
                     />
                   </DisclosureButton>
                   <DisclosurePanel className="mt-2 space-y-2">
@@ -253,6 +261,7 @@ export default function Navbar() {
                         as={Link}
                         to={item.href}
                         className="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold text-gray-900 hover:bg-gray-50"
+                        onClick={() => setMobileMenuOpen(false)}
                       >
                         {item.name}
                       </DisclosureButton>
@@ -262,18 +271,21 @@ export default function Navbar() {
                 <Link
                   to="/features"
                   className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                  onClick={() => setMobileMenuOpen(false)}
                 >
                   Features
                 </Link>
                 <Link
                   to="/marketplace"
                   className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                  onClick={() => setMobileMenuOpen(false)}
                 >
                   Marketplace
                 </Link>
                 <Link
                   to="/company"
                   className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                  onClick={() => setMobileMenuOpen(false)}
                 >
                   Company
                 </Link>
@@ -289,6 +301,7 @@ export default function Navbar() {
                   <Link
                     to="/login"
                     className="text-sm font-semibold text-gray-900"
+                    onClick={() => setMobileMenuOpen(false)}
                   >
                     Log in <span aria-hidden="true">&rarr;</span>
                   </Link>
@@ -306,6 +319,7 @@ export default function Navbar() {
                   <Link
                     to="/login"
                     className="text-sm font-semibold text-gray-900"
+                    onClick={() => setMobileMenuOpen(false)}
                   >
                     Log in <span aria-hidden="true">&rarr;</span>
                   </Link>
